@@ -1,9 +1,22 @@
+import time
+
+
+def profiler(func):
+    def wrapper_method(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        print(func.__name__, time.time()-start, result)
+        return result
+    return wrapper_method
+
+
 def main():
     cube_outcomes = open("input.txt")
-    print(calculate_total_possible_games(cube_outcomes))
-    print(calculate_minimum_possible_games(cube_outcomes))
+    calculate_total_possible_games(cube_outcomes)
+    calculate_minimum_possible_games(cube_outcomes)
 
 
+@profiler
 def calculate_total_possible_games(cube_outcomes):
     cube_outcomes.seek(0)
     no_cubes = {"red": 12, "green": 13, "blue": 14}
@@ -19,10 +32,10 @@ def calculate_total_possible_games(cube_outcomes):
                 color = "".join(filter(str.isalpha, color_cubes.strip()))
                 possible = False if no_cubes[color] < number else possible
         total_game_ids = total_game_ids + int("".join(filter(str.isdigit, game_id))) if possible else total_game_ids
-
     return total_game_ids
 
 
+@profiler
 def calculate_minimum_possible_games(cube_outcomes):
     cube_outcomes.seek(0)
     total_power = 0
@@ -36,7 +49,6 @@ def calculate_minimum_possible_games(cube_outcomes):
                 color = "".join(filter(str.isalpha, color_cubes.strip()))
                 min_colors[color] = number if min_colors[color] < number else min_colors[color]
         total_power = total_power + min_colors["red"] * min_colors["green"] * min_colors["blue"]
-
     return total_power
 
 
