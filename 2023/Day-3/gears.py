@@ -1,12 +1,6 @@
 import time
 
 
-def main():
-    engine_schematic = open("input.txt")
-    calculate_engine_parts(engine_schematic)
-    calculate_gear_ratios(engine_schematic)
-
-
 def profiler(func):
     def wrapper_method(*args, **kwargs):
         start = time.time()
@@ -14,6 +8,12 @@ def profiler(func):
         print(func.__name__, time.time()-start, result)
         return result
     return wrapper_method
+
+
+def main():
+    engine_schematic = open("input.txt")
+    calculate_engine_parts(engine_schematic)
+    calculate_gear_ratios(engine_schematic)
 
 
 @profiler
