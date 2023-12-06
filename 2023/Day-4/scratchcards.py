@@ -49,7 +49,7 @@ def calculate_total_scratchcards(scratchcards):
 
     for card_no, card in enumerate(scratchcards):
         for i in range(1, no_wins_dict[card_no + 1] + 1):
-            no_cards_dict[card_no + 1 + i] = no_cards_dict[card_no + 1 + i] + 1 * no_cards_dict[card_no + 1]
+            no_cards_dict[card_no + 1 + i] = no_cards_dict[card_no + 1 + i] + no_cards_dict[card_no + 1]
     return sum(no_cards_dict.values())
 
 
